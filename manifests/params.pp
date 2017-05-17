@@ -7,7 +7,10 @@ class airflow::params {
   $service_enable            = true
 
   # Airflow install settings
-  $version                   = '1.6.2'
+  $version                   = false
+  $package_manage            = true
+  $package_provider          = 'pip'
+  $package_ensure            = '1.6.2'
   $package_name              = 'airflow'
 
   # User and group settings
@@ -17,7 +20,7 @@ class airflow::params {
   $shell                     = '/bin/bash'
   $gid                       = undef
   $uid                       = undef
-  $folders_mode              = 0775
+  $folders_mode              = '0775'
 
   # General settings
   $log_folder                = '/var/log/airflow'
@@ -72,7 +75,7 @@ class airflow::params {
   ## Scheduler settings
   $job_heartbeat_sec         = 5
   $scheduler_heartbeat_sec   = 5
-  
+
   ### START hiera lookups ###
   $ldap_settings             = {}
   $statsd_settings           = {}

@@ -6,6 +6,13 @@
 ###### Airflow install settings ######
 # [*version*]
 #   Specify version of airflow pip package to download, defaults to `1.6.2`.
+#   DEPRECATED: please override to null and use package_ensure instead
+# [*package_manage*]
+#   whether puppet should manage the package, defaults to `true`.
+# [*package_provider*]
+#    The provider to use to install the package. Default: `pip`
+# [*package_ensure*]
+#   what the install state (or version) of the package should be, defaults to `present`.
 # [*package_name*]
 #   Package name, defaults to `airflow`.
 ###### General settings ######
@@ -130,6 +137,10 @@ class airflow (
   # Airflow install settings
   $version                 = $airflow::params::version,
   $package_name            = $airflow::params::package_name,
+  $package_ensure          = $airflow::params::package_ensure,
+  $package_manage          = $airflow::params::package_manage,
+  $package_provider        = $airflow::params::package_provider,
+
 
   # User and group settings
   $user                    = $airflow::params::user,
@@ -201,6 +212,8 @@ class airflow (
 
 ) inherits airflow::params {
 
+  validate_string($package_ensure)
+  validate_string($package_provider)
   validate_string($user)
   validate_string($group)
   validate_string($service_ensure)
@@ -236,6 +249,7 @@ class airflow (
   validate_integer($flower_port)
   validate_integer($smtp_port)
 
+  validate_bool($package_manage)
   validate_bool($service_enable)
   validate_bool($authenticate)
   validate_bool($filter_by_owner)
