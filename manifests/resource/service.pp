@@ -2,6 +2,7 @@
 # == Description: Creates a systemd service definition
 #
 define airflow::resource::service($service_name = $name) {
+  include systemd
   file { "${airflow::systemd_service_folder}/${service_name}.service":
     mode    => '0644',
     owner   => 'root',
