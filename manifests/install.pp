@@ -6,7 +6,7 @@ class airflow::install inherits airflow {
   if $airflow::package_manage {
     # for backwards compatibility with variable "version", remove in a breaking version
     if $airflow::version {
-      warning("use of the parameter airflow::version is deprecated, please use airflow::package_ensure")
+      warning('use of the parameter airflow::version is deprecated, please use airflow::package_ensure')
       $ensure_value = $airflow::version
     }
     else {
@@ -14,7 +14,7 @@ class airflow::install inherits airflow {
     }
 
     package { $airflow::package_name:
-      ensure => $ensure_value,
+      ensure   => $ensure_value,
       provider => $airflow::package_provider
     }
 

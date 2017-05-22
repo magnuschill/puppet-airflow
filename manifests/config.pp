@@ -8,8 +8,8 @@ class airflow::config inherits airflow {
     ensure => 'present',
     name   => $airflow::group,
     gid    => $airflow::gid,
-  } ->
-  user { $airflow::user:
+  }
+  -> user { $airflow::user:
     ensure     => 'present',
     shell      => $airflow::shell,
     managehome => true,
@@ -38,10 +38,10 @@ class airflow::config inherits airflow {
     require => [File[$airflow::home_folder], User[$airflow::user]]
   }
   # Set the AIRFLOW_HOME environment variable on the server
-  file { "${airflow::user_home_folder}/.bash_profile":
+  file { "${airflow::user_home_folder}/.bashrc":
     owner   => $airflow::user,
     group   => $airflow::group,
-    content => inline_template("AIRFLOW_HOME=${airflow::home_folder}"),
+    content => inline_template("export AIRFLOW_HOME=${airflow::home_folder}"),
     require => File[$airflow::user_home_folder]
   }
   # Setup airflow.cfg configuration file
