@@ -38,10 +38,9 @@ class airflow::config inherits airflow {
     require => [File[$airflow::home_folder], User[$airflow::user]]
   }
   # Set the AIRFLOW_HOME environment variable on the server
-  file { "${airflow::user_home_folder}/.bashrc":
-    owner   => $airflow::user,
-    group   => $airflow::group,
-    content => inline_template("export AIRFLOW_HOME=${airflow::home_folder}"),
+  file_line { 'airflow_home_env':
+    path    => "${airflow::user_home_folder}/.bashrc",
+    line    => inline_template("export AIRFLOW_HOME=${airflow::home_folder}"),
     require => File[$airflow::user_home_folder]
   }
   # Setup airflow.cfg configuration file
