@@ -19,10 +19,15 @@ class airflow::config inherits airflow {
   # Create airflow folders
   $airflow_app_folders =
   [
-    $airflow::log_folder,$airflow::run_folder,
+    $airflow::log_folder,
     $airflow::dags_folder,$airflow::plugins_folder,
     $airflow::user_home_folder
   ]
+  file { $airflow::run_folder:
+    ensure  => directory,
+    require => User[$airflow::user],
+    replace => false
+  }
   file { $airflow::home_folder:
     ensure  => directory,
     owner   => $airflow::user,
