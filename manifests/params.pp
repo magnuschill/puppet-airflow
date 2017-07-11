@@ -71,6 +71,7 @@ class airflow::params {
   $celery_result_backend     = 'db+mysql://airflow:airflow@localhost:3306/airflow'
   $flower_port               = 5555
   $default_queue             = 'default'
+  $allow_root_worker         = false
 
   ## Scheduler settings
   $job_heartbeat_sec         = 5

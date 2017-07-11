@@ -199,6 +199,7 @@ class airflow (
   $celery_result_backend   = $airflow::params::celery_result_backend,
   $flower_port             = $airflow::params::flower_port,
   $default_queue           = $airflow::params::default_queue,
+  $allow_root_worker       = $airflow::params::allow_root_worker,
 
   ## Scheduler settings
   $job_heartbeat_sec       = $airflow::params::job_heartbeat_sec,
