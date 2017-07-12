@@ -9,7 +9,8 @@ define airflow::resource::service(
   $web_server_port  = $airflow::web_server_port,
   $home_folder      = $airflow::home_folder,
   $user             = $airflow::user,
-  $group            = $airflow::group
+  $group            = $airflow::group,
+  $allow_root_worker= $airflow::allow_root_worker
 ) {
   if $::osfamily == 'RedHat'{
     if $::operatingsystemmajrelease == '7'{
